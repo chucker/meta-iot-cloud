@@ -3,7 +3,7 @@ HOMEPAGE = "https://www.microsoft.com/net/core"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=9fc642ff452b28d62ab19b7eea50dfb9"
 
-COMPATIBLE_HOST ?= "(x86_64|aarch64|arm).*-linux"
+COMPATIBLE_HOST ?= "aarch64.*-linux"
 
 DEPENDS = "\
     zlib \
@@ -22,30 +22,17 @@ RDEPENDS_${PN}_class-native += "\
     zlib-native \
 "
 
-HOST_FXR = "5.0.0-rc.2.20475.5"
-RUNTIME = "5.0.0-rc.2.20475.5"
-ASP_RUNTIME = "5.0.0-rc.2.20475.17"
-SDK = "5.0.100-rc.2.20479.15"
+HOST_FXR = "5.0.0"
+RUNTIME = "5.0.0"
+ASP_RUNTIME = "5.0.0"
+SDK = "5.0.100"
 
 PR = "r0"
 
 python __anonymous () {
-    import re
-    
-    target_arch = d.getVar('TARGET_ARCH')
-    
-    if re.match('x86_64$', target_arch):
-        d.setVar('SRC_FETCH_ID', '69cb8922-7bb0-4d3a-aa92-8cb885fdd0a6/2fd4da9e026f661caf8db9c1602e7b2f')
-        d.setVarFlag('SRC_URI', 'sha512sum', 'e705043cdec53827695567eed021c76b100d77416f10cc18d4f5d02950f85bf9ccd7e2c22643f00a883e11b253fb8aa098e4dce008008a0796f913496f97e362')
-        d.setVar('DOTNET_ARCH', 'x64')
-    elif re.match('aarch64$', target_arch):
-        d.setVar('SRC_FETCH_ID', 'b416bc12-1478-4241-bc31-6fe68f8b73b6/582f018a97172f4975973390cf3f58e7')
-        d.setVarFlag('SRC_URI', 'sha512sum', '1aab49b2c328c4de8c40e790df99aa327a3aeba5d904696fa151acbfb7b5620ebf3d1e2e9726895d92b6146295840ffe3f2fb7208a81c7b73d2c92c9fcf50dbf')
-        d.setVar('DOTNET_ARCH', 'arm64')
-    elif re.match('arm$', target_arch):
-        d.setVar('SRC_FETCH_ID', '068ebc6e-4a1d-45ec-a766-733a142f2839/e0da4c731c943ca2b267c15edb565108')
-        d.setVarFlag('SRC_URI', 'sha512sum', '22e97c15393a4f986563f5e8b031b49983eb55531170b86594d7caab819b41032393a9b3db4ee96cb88fae3971ba243bb64187606e3a00fc64d2e434d906a637')
-        d.setVar('DOTNET_ARCH', 'arm')
+    d.setVar('SRC_FETCH_ID', '27840e8b-d61c-472d-8e11-c16784d40091/ae9780ccda4499405cf6f0924f6f036a')
+    d.setVarFlag('SRC_URI', 'sha512sum', '5fceac0a9468097d66af25516da597eb4836b294ed1647ba272ade5c8faea2ed977a95d9ce720c44d71607fa3a0cf9de55afe0e66c0c89ab1cc6736945978204')
+    d.setVar('DOTNET_ARCH', 'arm64')
 }
 
 SRC_URI = "https://download.visualstudio.microsoft.com/download/pr/${SRC_FETCH_ID}/${BPN}-sdk-${SDK}-linux-${DOTNET_ARCH}.tar.gz"
